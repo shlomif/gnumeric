@@ -27,7 +27,6 @@ EXTRA_DIST = \
 	intltool-extract.in	\
 	intltool-merge.in	\
 	intltool-update.in	\
-	xmldocs.make 		\
 	libspreadsheet.pc.in	\
 	omf.make
 
@@ -76,9 +75,8 @@ dist-hook:
 ## distcleancheck_listfiles = find . -type f -print | grep -v 'omf\.out' | grep -v '^\./doc'
 ## distuninstallcheck_listfiles = find . -type f -print | grep -v '^\./var/scrollkeeper' | grep -v 'omf' | grep -v 'figures'
 
-# xmldocs.make is screwed:
 distcleancheck_listfiles = \
-  find . -type f -print -o -path ./doc -prune
+  find . -type f -print
 
 # We are not able to uninstall the scrollkeeper files:
 distuninstallcheck_listfiles = \

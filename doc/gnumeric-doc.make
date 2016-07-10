@@ -28,11 +28,9 @@ MOSTLYCLEANFILES = functions.out functions.tmp
 func.defs: $(top_builddir)/src/gnumeric$(EXEEXT)
 	LC_ALL="$(locale)" ; export LC_ALL ; $(top_builddir)/src/gnumeric --dump-func-defs="$@"
 
-include $(top_srcdir)/xmldocs.make
-
 # Include generated files to simplify installation.
 # (Entities, including functions.xml, are shipped via xmldocs.make.)
-EXTRA_DIST += $(functions_xml_parts)
+EXTRA_DIST = $(functions_xml_parts)
 
 noinst_DATA =
 
