@@ -8,14 +8,14 @@ use GnumericTest;
 my $file = "$samples/solver-tests.gnumeric";
 $GnumericTest::default_subtests = 'gnumeric';
 
-if (&subtest ("gnumeric")) {
+if (subtest ("gnumeric")) {
     message ("Check solver gnumeric roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_XmlIO:sax',
 		     'ext' => "gnm");
 }
 
-if (&subtest ("ods")) {
+if (subtest ("ods")) {
     # Format is deficient
     message ("Check solver ods roundtrip.");
     test_roundtrip ($file,
@@ -24,7 +24,7 @@ if (&subtest ("ods")) {
 		     'filter2' => 'std:drop_generator');
 }
 
-if (&subtest ("biff7")) {
+if (subtest ("biff7")) {
     # Format is deficient
     message ("Check solver xls/BIFF7 roundtrip.");
     test_roundtrip ($file,
@@ -34,7 +34,7 @@ if (&subtest ("biff7")) {
 		     'filter2' => 'std:drop_codepage');
 }
 
-if (&subtest ("biff8")) {
+if (subtest ("biff8")) {
     # Format is deficient
     message ("Check solver xls/BIFF8 roundtrip.");
     test_roundtrip ($file,
@@ -43,7 +43,7 @@ if (&subtest ("biff8")) {
 		     'filter2' => 'std:drop_codepage');
 }
 
-if (&subtest ("xlsx")) {
+if (subtest ("xlsx")) {
     # Format is deficient
     message ("Check solver xlsx roundtrip.");
     test_roundtrip ($file,

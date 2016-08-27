@@ -7,14 +7,14 @@ use GnumericTest;
 
 my $file = "$samples/style-tests.gnumeric";
 
-if (&subtest ("gnumeric")) {
+if (subtest ("gnumeric")) {
     message ("Check style gnumeric roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_XmlIO:sax',
 		     'ext' => "gnm");
 }
 
-if (&subtest ("ods")) {
+if (subtest ("ods")) {
     message ("Check style ods roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_OpenCalc:odf',
@@ -34,7 +34,7 @@ my $xls_indent_filter = "$PERL -p -e 's{\\bIndent=\"[1-9]\\d*\"}{Indent=\"0\"};'
 # Our patterns 19-24 do not exist in xls
 my $xls_pattern_filter = "$PERL -p -e 'use English; my \%m=(19,14,20,7,21,4,22,4,23,2,24,1); if (m{\\bShade=\"(\\d+)\"} && (\$n = \$m{\$1})) { \$_ = \"\${PREMATCH}Shade=\\\"\$n\\\"\${POSTMATCH}\"; }'";
 
-if (&subtest ("biff7")) {
+if (subtest ("biff7")) {
     message ("Check style xls/BIFF7 roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff7',
@@ -44,7 +44,7 @@ if (&subtest ("biff7")) {
 		     'filter2' => 'std:drop_codepage');
 }
 
-if (&subtest ("biff8")) {
+if (subtest ("biff8")) {
     message ("Check style xls/BIFF8 roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff8',
@@ -53,7 +53,7 @@ if (&subtest ("biff8")) {
 		     'filter2' => 'std:drop_codepage');
 }
 
-if (&subtest ("xlsx")) {
+if (subtest ("xlsx")) {
     message ("Check style xlsx roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:xlsx',

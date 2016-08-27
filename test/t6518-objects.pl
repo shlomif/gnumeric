@@ -9,14 +9,14 @@ my $file = "$samples/object-tests.gnumeric";
 $GnumericTest::default_subtests = '*,-biff7';
 
 
-if (&subtest ("gnumeric")) {
+if (subtest ("gnumeric")) {
     message ("Check object gnumeric roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_XmlIO:sax',
 		     'ext' => "gnm");
 }
 
-if (&subtest ("ods")) {
+if (subtest ("ods")) {
     message ("Check object ods roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_OpenCalc:odf',
@@ -25,7 +25,7 @@ if (&subtest ("ods")) {
 		     'ignore_failure' => 1);
 }
 
-if (&subtest ("biff7")) {
+if (subtest ("biff7")) {
     # We don't save objects, so don't test.
     message ("Check object xls/BIFF7 roundtrip.");
     test_roundtrip ($file,
@@ -35,7 +35,7 @@ if (&subtest ("biff7")) {
 		     'filter2' => 'std:drop_codepage');
 }
 
-if (&subtest ("biff8")) {
+if (subtest ("biff8")) {
     message ("Check object xls/BIFF8 roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff8',
@@ -45,7 +45,7 @@ if (&subtest ("biff8")) {
 		     'ignore_failure' => 1);
 }
 
-if (&subtest ("xlsx")) {
+if (subtest ("xlsx")) {
     message ("Check object xlsx roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:xlsx',

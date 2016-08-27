@@ -7,14 +7,14 @@ use GnumericTest;
 
 my $file = "$samples/sheet-names-tests.gnumeric";
 
-if (&subtest ("gnumeric")) {
+if (subtest ("gnumeric")) {
     message ("Check sheet names gnumeric roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_XmlIO:sax',
 		     'ext' => "gnm");
 }
 
-if (&subtest ("ods")) {
+if (subtest ("ods")) {
     message ("Check sheet names ods roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_OpenCalc:odf',
@@ -22,7 +22,7 @@ if (&subtest ("ods")) {
 		     'filter2' => 'std:drop_generator');
 }
 
-if (&subtest ("biff7")) {
+if (subtest ("biff7")) {
     message ("Check sheet names xls/BIFF7 roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff7',
@@ -32,7 +32,7 @@ if (&subtest ("biff7")) {
 		     'ignore_failure' => 1);
 }
 
-if (&subtest ("biff8")) {
+if (subtest ("biff8")) {
     message ("Check sheet names xls/BIFF8 roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff8',
@@ -41,7 +41,7 @@ if (&subtest ("biff8")) {
 		     'ignore_failure' => 1);
 }
 
-if (&subtest ("xlsx")) {
+if (subtest ("xlsx")) {
     message ("Check sheet names xlsx roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:xlsx',

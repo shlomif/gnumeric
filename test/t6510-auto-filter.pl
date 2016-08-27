@@ -7,14 +7,14 @@ use GnumericTest;
 
 my $file = "$samples/auto-filter-tests.gnumeric";
 
-if (&subtest ("gnumeric")) {
+if (subtest ("gnumeric")) {
     message ("Check auto-filter gnumeric roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_XmlIO:sax',
 		     'ext' => "gnm");
 }
 
-if (&subtest ("ods")) {
+if (subtest ("ods")) {
     message ("Check auto-filter ods roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_OpenCalc:odf',
@@ -24,7 +24,7 @@ if (&subtest ("ods")) {
 
 my $xls_greek_filter = "$PERL -p -C7 -e '1 while (s{\\b((Title|Message)=\".*Greek[ ?]+)[^ ?\"]}{\$1?})'";
 
-if (&subtest ("biff7")) {
+if (subtest ("biff7")) {
     message ("Check auto-filter xls/BIFF7 roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff7',
@@ -34,7 +34,7 @@ if (&subtest ("biff7")) {
 		     'filter2' => 'std:drop_codepage');
 }
 
-if (&subtest ("biff8")) {
+if (subtest ("biff8")) {
     message ("Check auto-filter xls/BIFF8 roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff8',
@@ -42,7 +42,7 @@ if (&subtest ("biff8")) {
 		     'filter2' => 'std:drop_codepage');
 }
 
-if (&subtest ("xlsx")) {
+if (subtest ("xlsx")) {
     message ("Check auto-filter xlsx roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:xlsx',

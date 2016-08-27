@@ -7,14 +7,14 @@ use GnumericTest;
 
 my $file = "$samples/page-setup-tests.gnumeric";
 
-if (&subtest ("gnumeric")) {
+if (subtest ("gnumeric")) {
     message ("Check page-setup gnumeric roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_XmlIO:sax',
 		     'ext' => "gnm");
 }
 
-if (&subtest ("ods")) {
+if (subtest ("ods")) {
     message ("Check page-setup ods roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_OpenCalc:odf',
@@ -22,7 +22,7 @@ if (&subtest ("ods")) {
 		     'filter2' => 'std:drop_generator');
 }
 
-if (&subtest ("biff7")) {
+if (subtest ("biff7")) {
     message ("Check page-setup xls/BIFF7 roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff7',
@@ -31,7 +31,7 @@ if (&subtest ("biff7")) {
 		     'filter2' => 'std:drop_codepage');
 }
 
-if (&subtest ("biff8")) {
+if (subtest ("biff8")) {
     message ("Check page-setup xls/BIFF8 roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff8',
@@ -39,7 +39,7 @@ if (&subtest ("biff8")) {
 		     'filter2' => 'std:drop_codepage');
 }
 
-if (&subtest ("xlsx")) {
+if (subtest ("xlsx")) {
     message ("Check page-setup xlsx roundtrip.");
     test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:xlsx',
