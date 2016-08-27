@@ -8,14 +8,14 @@ use GnumericTest;
 my $file = "$samples/cell-comment-tests.gnumeric";
 
 if (&subtest ("gnumeric")) {
-    &message ("Check cell-comment gnumeric roundtrip.");
+    message ("Check cell-comment gnumeric roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_XmlIO:sax',
 		     'ext' => "gnm");
 }
 
 if (&subtest ("ods")) {
-    &message ("Check cell-comment ods roundtrip.");
+    message ("Check cell-comment ods roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_OpenCalc:odf',
 		     'ext' => "ods",
@@ -25,7 +25,7 @@ if (&subtest ("ods")) {
 my $xls_greek_filter = "$PERL -p -C7 -e '1 while (s{\\b(Text=\"Greek[ ?]+)[^ ?\"]}{\$1?})'";
 
 if (&subtest ("biff7")) {
-    &message ("Check cell-comment xls/BIFF7 roundtrip.");
+    message ("Check cell-comment xls/BIFF7 roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff7',
 		     'ext' => "xls",
@@ -35,7 +35,7 @@ if (&subtest ("biff7")) {
 }
 
 if (&subtest ("biff8")) {
-    &message ("Check cell-comment xls/BIFF8 roundtrip.");
+    message ("Check cell-comment xls/BIFF8 roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff8',
 		     'ext' => "xls",
@@ -43,7 +43,7 @@ if (&subtest ("biff8")) {
 }
 
 if (&subtest ("xlsx")) {
-    &message ("Check cell-comment xlsx roundtrip.");
+    message ("Check cell-comment xlsx roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:xlsx',
 		     'ext' => "xlsx",

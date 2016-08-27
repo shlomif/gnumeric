@@ -8,7 +8,7 @@ use GnumericTest;
 my $expected;
 { local $/; $expected = <DATA>; }
 
-&message ("Check insert/delete col/row's effect on names.");
+message ("Check insert/delete col/row's effect on names.");
 &sstest ("test_insdel_rowcol_names", $expected);
 
 __DATA__

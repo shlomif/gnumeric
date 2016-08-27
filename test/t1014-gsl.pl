@@ -6,7 +6,7 @@ use lib ($0 =~ m|^(.*/)| ? $1 : ".");
 use GnumericTest;
 
 my $file = "gsl.gnumeric";
-&message ("Check that $file evaluates correctly.");
+message ("Check that $file evaluates correctly.");
 &test_sheet_calc ("$samples/$file", "C2:F2",
 		  sub {
 		      foreach my $a (split (',')) {

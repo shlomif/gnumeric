@@ -10,14 +10,14 @@ $GnumericTest::default_subtests = '*,-biff7';
 
 
 if (&subtest ("gnumeric")) {
-    &message ("Check graph gnumeric roundtrip.");
+    message ("Check graph gnumeric roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_XmlIO:sax',
 		     'ext' => "gnm");
 }
 
 if (&subtest ("ods")) {
-    &message ("Check graph ods roundtrip.");
+    message ("Check graph ods roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_OpenCalc:odf',
 		     'ext' => "ods",
@@ -27,7 +27,7 @@ if (&subtest ("ods")) {
 
 if (&subtest ("biff7")) {
     # We don't save graphs, so don't test.
-    &message ("Check graph xls/BIFF7 roundtrip.");
+    message ("Check graph xls/BIFF7 roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff7',
 		     'ext' => "xls",
@@ -41,7 +41,7 @@ my $xls_drop_pts_size = "$PERL -p -e '\$_ = \"\" if m{^\\s*<property name=\"(wid
 my $xls_missing_marker_shapes = "$PERL -p -e 's/\\bshape=\"(hourglass|butterfly|lefthalf-bar)\"/shape=\"square\"/; s/\\bshape=\"triangle-(down|left|right)\"/shape=\"triangle-up\"/;'";
 
 if (&subtest ("biff8")) {
-    &message ("Check graph xls/BIFF8 roundtrip.");
+    message ("Check graph xls/BIFF8 roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff8',
 		     'ext' => "xls",
@@ -51,7 +51,7 @@ if (&subtest ("biff8")) {
 }
 
 if (&subtest ("xlsx")) {
-    &message ("Check graph xlsx roundtrip.");
+    message ("Check graph xlsx roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:xlsx',
 		     'ext' => "xlsx",

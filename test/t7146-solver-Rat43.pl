@@ -7,7 +7,7 @@ use GnumericTest;
 
 my $file = "Rat43.gnumeric";
 my $rle = 4;
-&message ("Check non-linear solver on $file problem.");
+message ("Check non-linear solver on $file problem.");
 &test_sheet_calc ("$samples/solver/$file", ['--solve'], "K39",
 		  sub {
 		      chomp;

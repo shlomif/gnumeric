@@ -5,7 +5,7 @@ use strict;
 use lib ($0 =~ m|^(.*/)| ? $1 : ".");
 use GnumericTest;
 
-&message ("Check the csv importer.");
+message ("Check the csv importer.");
 
 &test_csv_format_guessing
     (data => <<DATA, format => sub { /^d.*m.*y.*$/i; } );

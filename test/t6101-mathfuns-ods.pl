@@ -5,7 +5,7 @@ use strict;
 use lib ($0 =~ m|^(.*/)| ? $1 : ".");
 use GnumericTest;
 
-&message ("Check the ods exporter.");
+message ("Check the ods exporter.");
 
 my $src = "$samples/excel/mathfuns.xls";
 GnumericTest::report_skip ("file $src does not exist") unless -r $src;

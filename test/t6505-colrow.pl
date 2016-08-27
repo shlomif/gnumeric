@@ -8,14 +8,14 @@ use GnumericTest;
 my $file = "$samples/colrow-tests.gnumeric";
 
 if (&subtest ("gnumeric")) {
-    &message ("Check col/row info gnumeric roundtrip.");
+    message ("Check col/row info gnumeric roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_XmlIO:sax',
 		     'ext' => "gnm");
 }
 
 if (&subtest ("ods")) {
-    &message ("Check col/row info ods roundtrip.");
+    message ("Check col/row info ods roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_OpenCalc:odf',
 		     'ext' => "ods",
@@ -23,7 +23,7 @@ if (&subtest ("ods")) {
 }
 
 if (&subtest ("biff7")) {
-    &message ("Check col/row info xls/BIFF7 roundtrip.");
+    message ("Check col/row info xls/BIFF7 roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff7',
 		     'ext' => "xls",
@@ -33,7 +33,7 @@ if (&subtest ("biff7")) {
 }
 
 if (&subtest ("biff8")) {
-    &message ("Check col/row info xls/BIFF8 roundtrip.");
+    message ("Check col/row info xls/BIFF8 roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff8',
 		     'ext' => "xls",
@@ -42,7 +42,7 @@ if (&subtest ("biff8")) {
 }
 
 if (&subtest ("xlsx")) {
-    &message ("Check col/row info xlsx roundtrip.");
+    message ("Check col/row info xlsx roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:xlsx',
 		     'ext' => "xlsx",

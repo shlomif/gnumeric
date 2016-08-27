@@ -9,7 +9,7 @@ my $file = "blend.mps";
 my $answer = -30.8121498458281;
 # lp_solve:  -30.81221619004;
 my $tol = 1e-4;
-&message ("Check solver on $file problem.");
+message ("Check solver on $file problem.");
 &test_sheet_calc ("$samples/solver/$file", ['--solve'], "B5",
 		  sub {
 		      chomp;

@@ -5,7 +5,7 @@ use strict;
 use lib ($0 =~ m|^(.*/)| ? $1 : ".");
 use GnumericTest;
 
-&message ("Check style optimizer.");
+message ("Check style optimizer.");
 $ENV{'GNM_DEBUG'} = 'style-optimize:style-optimize-verify';
 
 my $src = "$samples/excel/statfuns.xls";

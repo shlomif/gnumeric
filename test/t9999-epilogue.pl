@@ -5,7 +5,7 @@ use strict;
 use lib ($0 =~ m|^(.*/)| ? $1 : ".");
 use GnumericTest;
 
-&message ("Warnings about things that might affect tests.");
+message ("Warnings about things that might affect tests.");
 
 my $HOME = $ENV{'HOME'};
 

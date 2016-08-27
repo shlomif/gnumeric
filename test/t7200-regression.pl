@@ -8,7 +8,7 @@ use GnumericTest;
 my $expected;
 { local $/; $expected = <DATA>; }
 
-&message ("Check regression tool.");
+message ("Check regression tool.");
 my $file = "$samples/tool-tests.gnumeric";
 
 GnumericTest::test_tool ($file, 'regression',

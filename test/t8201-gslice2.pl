@@ -5,7 +5,7 @@ use strict;
 use lib ($0 =~ m|^(.*/)| ? $1 : ".");
 use GnumericTest;
 
-&message ("Check core glib slice checker");
+message ("Check core glib slice checker");
 $ENV{'G_SLICE'} = 'debug-blocks';
 
 my $src = "$samples/excel/statfuns.xls";

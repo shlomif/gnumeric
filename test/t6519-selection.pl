@@ -8,14 +8,14 @@ use GnumericTest;
 my $file = "$samples/selection-tests.gnumeric";
 
 if (&subtest ("gnumeric")) {
-    &message ("Check selection gnumeric roundtrip.");
+    message ("Check selection gnumeric roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_XmlIO:sax',
 		     'ext' => "gnm");
 }
 
 if (&subtest ("ods")) {
-    &message ("Check selection ods roundtrip.");
+    message ("Check selection ods roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_OpenCalc:odf',
 		     'ext' => "ods",
@@ -23,7 +23,7 @@ if (&subtest ("ods")) {
 }
 
 if (&subtest ("biff7")) {
-    &message ("Check selection xls/BIFF7 roundtrip.");
+    message ("Check selection xls/BIFF7 roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff7',
 		     'ext' => "xls",
@@ -32,7 +32,7 @@ if (&subtest ("biff7")) {
 }
 
 if (&subtest ("biff8")) {
-    &message ("Check selection xls/BIFF8 roundtrip.");
+    message ("Check selection xls/BIFF8 roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff8',
 		     'ext' => "xls",
@@ -40,7 +40,7 @@ if (&subtest ("biff8")) {
 }
 
 if (&subtest ("xlsx")) {
-    &message ("Check selection xlsx roundtrip.");
+    message ("Check selection xlsx roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:xlsx',
 		     'ext' => "xlsx",

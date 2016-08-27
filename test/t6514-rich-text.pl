@@ -11,14 +11,14 @@ use GnumericTest;
 my $file = "$samples/rich-text-tests.gnumeric";
 
 if (&subtest ("gnumeric")) {
-    &message ("Check rich text gnumeric roundtrip.");
+    message ("Check rich text gnumeric roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_XmlIO:sax',
 		     'ext' => "gnm");
 }
 
 if (&subtest ("ods")) {
-    &message ("Check rich text ods roundtrip.");
+    message ("Check rich text ods roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_OpenCalc:odf',
 		     'ext' => "ods",
@@ -26,7 +26,7 @@ if (&subtest ("ods")) {
 }
 
 if (&subtest ("biff7")) {
-    &message ("Check rich text xls/BIFF7 roundtrip.");
+    message ("Check rich text xls/BIFF7 roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff7',
 		     'ext' => "xls",
@@ -36,7 +36,7 @@ if (&subtest ("biff7")) {
 }
 
 if (&subtest ("biff8")) {
-    &message ("Check rich text xls/BIFF8 roundtrip.");
+    message ("Check rich text xls/BIFF8 roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff8',
 		     'ext' => "xls",
@@ -45,7 +45,7 @@ if (&subtest ("biff8")) {
 }
 
 if (&subtest ("xlsx")) {
-    &message ("Check rich text xlsx roundtrip.");
+    message ("Check rich text xlsx roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:xlsx',
 		     'ext' => "xlsx",

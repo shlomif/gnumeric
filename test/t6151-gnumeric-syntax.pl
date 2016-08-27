@@ -5,7 +5,7 @@ use strict;
 use lib ($0 =~ m|^(.*/)| ? $1 : ".");
 use GnumericTest;
 
-&message ("Check that the gnumeric exporter produces valid files.");
+message ("Check that the gnumeric exporter produces valid files.");
 
 my $schema = "$topsrc/gnumeric.xsd";
 GnumericTest::report_skip ("Cannot find schema") unless -r $schema;

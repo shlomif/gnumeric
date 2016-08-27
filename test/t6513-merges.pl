@@ -11,14 +11,14 @@ use GnumericTest;
 my $file = "$samples/merge-tests.gnumeric";
 
 if (&subtest ("gnumeric")) {
-    &message ("Check merges gnumeric roundtrip.");
+    message ("Check merges gnumeric roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_XmlIO:sax',
 		     'ext' => "gnm");
 }
 
 if (&subtest ("ods")) {
-    &message ("Check merges ods roundtrip.");
+    message ("Check merges ods roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_OpenCalc:odf',
 		     'ext' => "ods",
@@ -26,7 +26,7 @@ if (&subtest ("ods")) {
 }
 
 if (&subtest ("biff7")) {
-    &message ("Check merges xls/BIFF7 roundtrip.");
+    message ("Check merges xls/BIFF7 roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff7',
 		     'ext' => "xls",
@@ -35,7 +35,7 @@ if (&subtest ("biff7")) {
 }
 
 if (&subtest ("biff8")) {
-    &message ("Check merges xls/BIFF8 roundtrip.");
+    message ("Check merges xls/BIFF8 roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff8',
 		     'ext' => "xls",
@@ -43,7 +43,7 @@ if (&subtest ("biff8")) {
 }
 
 if (&subtest ("xlsx")) {
-    &message ("Check merges xlsx roundtrip.");
+    message ("Check merges xlsx roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:xlsx',
 		     'ext' => "xlsx",

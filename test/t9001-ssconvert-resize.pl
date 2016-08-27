@@ -5,7 +5,7 @@ use strict;
 use lib ($0 =~ m|^(.*/)| ? $1 : ".");
 use GnumericTest;
 
-&message ("Check ssconvert resize");
+message ("Check ssconvert resize");
 
 my $src = "$samples/regress.gnumeric";
 my $tmp = "regress-resize.gnumeric";

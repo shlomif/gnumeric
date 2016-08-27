@@ -20,5 +20,5 @@ sub expected {
     return $actual_ok || $ignore_failure;
 }
 
-&message ("Checking random number generators.");
+message ("Checking random number generators.");
 &sstest ("test_random", \&expected);

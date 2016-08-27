@@ -8,7 +8,7 @@ use GnumericTest;
 my $expected;
 { local $/; $expected = <DATA>; }
 
-&message ("Check anova tool.");
+message ("Check anova tool.");
 my $file = "$samples/nist/gear.gnumeric";
 
 GnumericTest::test_tool ($file, 'anova',

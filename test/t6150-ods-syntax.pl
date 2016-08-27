@@ -5,7 +5,7 @@ use strict;
 use lib ($0 =~ m|^(.*/)| ? $1 : ".");
 use GnumericTest;
 
-&message ("Check that the ods exporter produces valid files.");
+message ("Check that the ods exporter produces valid files.");
 
 my $xmllint = GnumericTest::find_program ("xmllint");
 my $unzip = GnumericTest::find_program ("unzip");

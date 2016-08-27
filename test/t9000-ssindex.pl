@@ -5,7 +5,7 @@ use strict;
 use lib ($0 =~ m|^(.*/)| ? $1 : ".");
 use GnumericTest;
 
-&message ("Check ssindex.");
+message ("Check ssindex.");
 
 sub uniq { my %h; map { $h{$_} = 1} @_; return keys %h; }
 

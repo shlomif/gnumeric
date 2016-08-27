@@ -9,7 +9,7 @@ my $file = "$samples/solver-tests.gnumeric";
 $GnumericTest::default_subtests = 'gnumeric';
 
 if (&subtest ("gnumeric")) {
-    &message ("Check solver gnumeric roundtrip.");
+    message ("Check solver gnumeric roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_XmlIO:sax',
 		     'ext' => "gnm");
@@ -17,7 +17,7 @@ if (&subtest ("gnumeric")) {
 
 if (&subtest ("ods")) {
     # Format is deficient
-    &message ("Check solver ods roundtrip.");
+    message ("Check solver ods roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_OpenCalc:odf',
 		     'ext' => "ods",
@@ -26,7 +26,7 @@ if (&subtest ("ods")) {
 
 if (&subtest ("biff7")) {
     # Format is deficient
-    &message ("Check solver xls/BIFF7 roundtrip.");
+    message ("Check solver xls/BIFF7 roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff7',
 		     'ext' => "xls",
@@ -36,7 +36,7 @@ if (&subtest ("biff7")) {
 
 if (&subtest ("biff8")) {
     # Format is deficient
-    &message ("Check solver xls/BIFF8 roundtrip.");
+    message ("Check solver xls/BIFF8 roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff8',
 		     'ext' => "xls",
@@ -45,7 +45,7 @@ if (&subtest ("biff8")) {
 
 if (&subtest ("xlsx")) {
     # Format is deficient
-    &message ("Check solver xlsx roundtrip.");
+    message ("Check solver xlsx roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:xlsx',
 		     'ext' => "xlsx",

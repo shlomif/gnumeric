@@ -8,7 +8,7 @@ use GnumericTest;
 my $expected;
 { local $/; $expected = <DATA>; }
 
-&message ("Checking function help text sanity.");
+message ("Checking function help text sanity.");
 &sstest ("test_func_help", $expected);
 
 __DATA__

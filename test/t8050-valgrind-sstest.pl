@@ -5,7 +5,7 @@ use strict;
 use lib ($0 =~ m|^(.*/)| ? $1 : ".");
 use GnumericTest;
 
-&message ("Check sstest with valgrind.");
+message ("Check sstest with valgrind.");
 
 my $pango = `pkg-config --modversion pango 2>/dev/null`;
 chomp $pango;

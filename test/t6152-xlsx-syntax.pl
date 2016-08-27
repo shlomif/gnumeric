@@ -5,24 +5,24 @@ use strict;
 use lib ($0 =~ m|^(.*/)| ? $1 : ".");
 use GnumericTest;
 
-&message ("Check that the xlsx exporter produces valid files.");
+message ("Check that the xlsx exporter produces valid files.");
 
 my $format = "Gnumeric_Excel:xlsx";
 # FIXME: until get figure out how to check xlsx files against a schema,
 # this is a very limited test.
 my $schema = "$topsrc/test/ooxml-schema/sml.xsd";
 if (!-r $schema) {
-    &message ("Schema $schema not found");
+    message ("Schema $schema not found");
     $schema = undef;
 }
 my $chart_schema = "$topsrc/test/ooxml-schema/dml-chart.xsd";
 if (!-r $chart_schema) {
-    &message ("Schema $chart_schema not found");
+    message ("Schema $chart_schema not found");
     $chart_schema = undef;
 }
 my $drawing_schema = "$topsrc/test/ooxml-schema/dml-spreadsheetDrawing.xsd";
 if (!-r $drawing_schema) {
-    &message ("Schema $drawing_schema not found");
+    message ("Schema $drawing_schema not found");
     $drawing_schema = undef;
 }
 

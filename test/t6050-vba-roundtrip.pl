@@ -5,7 +5,7 @@ use strict;
 use lib ($0 =~ m|^(.*/)| ? $1 : ".");
 use GnumericTest;
 
-&message ("Check that vba roundtrips through xls");
+message ("Check that vba roundtrips through xls");
 
 my $src = "$samples/vba-725220.xls";
 GnumericTest::report_skip ("file $src does not exist") unless -r $src;

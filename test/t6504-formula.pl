@@ -8,14 +8,14 @@ use GnumericTest;
 my $file = "$samples/formula-tests.gnumeric";
 
 if (&subtest ("gnumeric")) {
-    &message ("Check formula gnumeric roundtrip.");
+    message ("Check formula gnumeric roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_XmlIO:sax',
 		     'ext' => "gnm");
 }
 
 if (&subtest ("ods")) {
-    &message ("Check formula ods roundtrip.");
+    message ("Check formula ods roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_OpenCalc:odf',
 		     'ext' => "ods",
@@ -23,7 +23,7 @@ if (&subtest ("ods")) {
 }
 
 if (&subtest ("biff7")) {
-    &message ("Check formula xls/BIFF7 roundtrip.");
+    message ("Check formula xls/BIFF7 roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff7',
 		     'ext' => "xls",
@@ -32,7 +32,7 @@ if (&subtest ("biff7")) {
 }
 
 if (&subtest ("biff8")) {
-    &message ("Check formula xls/BIFF8 roundtrip.");
+    message ("Check formula xls/BIFF8 roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff8',
 		     'ext' => "xls",
@@ -40,7 +40,7 @@ if (&subtest ("biff8")) {
 }
 
 if (&subtest ("xlsx")) {
-    &message ("Check formula xlsx roundtrip.");
+    message ("Check formula xlsx roundtrip.");
     &test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:xlsx',
 		     'ext' => "xlsx",

@@ -5,7 +5,7 @@ use strict;
 use lib ($0 =~ m|^(.*/)| ? $1 : ".");
 use GnumericTest;
 
-&message ("Check that the ods exporter produces the same results every time.");
+message ("Check that the ods exporter produces the same results every time.");
 
 my $format = "Gnumeric_OpenCalc:odf";
 my $unzip = GnumericTest::find_program ("unzip");
