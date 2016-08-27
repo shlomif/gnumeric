@@ -9,7 +9,7 @@ use GnumericTest;
 
 my $format = "Gnumeric_XmlIO:sax:0";
 
-my @sources = &GnumericTest::corpus();
+my @sources = GnumericTest::corpus();
 # datefuns and docs-samples use NOW()
 @sources = grep { !m{(^|/)(datefuns\.xls|docs-samples\.gnumeric)$} } @sources;
 
@@ -30,7 +30,7 @@ foreach my $src (@sources) {
 	my $tmp = $src;
 	$tmp =~ s|^.*/||;
 	$tmp =~ s|\..*|-$i.gnumeric|;
-	&GnumericTest::junkfile ($tmp);
+	GnumericTest::junkfile ($tmp);
 	my $cmd = "$ssconvert -T $format $src $tmp";
 	print STDERR "# $cmd\n" if $GnumericTest::verbose;
 	system ($cmd);
@@ -39,8 +39,8 @@ foreach my $src (@sources) {
 	    die "Fail\n";
 	}
 
-	push @data, &GnumericTest::read_file ($tmp);
-	&GnumericTest::removejunk ($tmp);
+	push @data, GnumericTest::read_file ($tmp);
+	GnumericTest::removejunk ($tmp);
     }
 
     if ($data[0] ne $data[1]) {
@@ -51,7 +51,7 @@ foreach my $src (@sources) {
     }
 }
 
-&GnumericTest::report_skip ("No source files present") if $nbad + $ngood == 0;
+GnumericTest::report_skip ("No source files present") if $nbad + $ngood == 0;
 
 if ($nskipped > 0) {
     print STDERR "$nskipped files skipped.\n";

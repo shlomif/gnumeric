@@ -858,7 +858,7 @@ sub test_tool {
     if (&$test ($actual)) {
 	print STDERR "Pass\n";
     } else {
-	&GnumericTest::dump_indented ($actual);
+	GnumericTest::dump_indented ($actual);
 	die "Fail\n";
     }
 }

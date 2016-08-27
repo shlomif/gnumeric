@@ -11,7 +11,7 @@ my $expected;
 &message ("Check regression tool.");
 my $file = "$samples/tool-tests.gnumeric";
 
-&GnumericTest::test_tool ($file, 'regression',
+GnumericTest::test_tool ($file, 'regression',
 			  ['x' => 'Data!A1:A30', 'y' => 'Data!B1:B30'],
 			  'A1:G18',
 			  sub { $_[0] eq $expected; });

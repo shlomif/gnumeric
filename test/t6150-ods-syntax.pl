@@ -7,8 +7,8 @@ use GnumericTest;
 
 &message ("Check that the ods exporter produces valid files.");
 
-my $xmllint = &GnumericTest::find_program ("xmllint");
-my $unzip = &GnumericTest::find_program ("unzip");
+my $xmllint = GnumericTest::find_program ("xmllint");
+my $unzip = GnumericTest::find_program ("unzip");
 
 my $format = "Gnumeric_OpenCalc:openoffice";
 my $format_ext = "Gnumeric_OpenCalc:odf";
@@ -59,7 +59,7 @@ my %checkers = ( 0 => $checker,
 		 1 => $checker_ext,
 		 2 => $manifest_checker);
 
-my @sources = &GnumericTest::corpus();
+my @sources = GnumericTest::corpus();
 # xmllint hangs on these files.  (Well, amath finishes but takes too
 # long.)
 @sources = grep { !m{(^|/)(amath|crlibm|gamma)\.gnumeric$} } @sources;
@@ -80,7 +80,7 @@ foreach my $src (@sources) {
 	my $tmp = $src;
 	$tmp =~ s|^.*/||;
 	$tmp =~ s|\..*|.ods|;
-	&GnumericTest::junkfile ($tmp);
+	GnumericTest::junkfile ($tmp);
 	my $cmd = "$ssconvert -T " . ($ext ? $format_ext : $format) . " $src $tmp";
 	print STDERR "# $cmd\n" if $GnumericTest::verbose;
 	system ($cmd);
@@ -118,18 +118,18 @@ foreach my $src (@sources) {
 	    my $out = `$cmd 2>&1`;
 	    if ($out ne '' && $out !~ /^- validates$/) {
 		print STDERR "While checking $member from $tmp:\n";
-		&GnumericTest::dump_indented ($out);
+		GnumericTest::dump_indented ($out);
 		$nbad++;
 	    } else {
 		$ngood++;
 	    }
 	}
 
-	&GnumericTest::removejunk ($tmp);
+	GnumericTest::removejunk ($tmp);
     }
 }
 
-&GnumericTest::report_skip ("No source files present") if $nbad + $ngood == 0;
+GnumericTest::report_skip ("No source files present") if $nbad + $ngood == 0;
 
 if ($nskipped > 0) {
     print STDERR "$nskipped files skipped.\n";
@@ -151,8 +151,8 @@ sub download {
 	    die "$0: Cannot create directory $schemadir\n";
     }
 
-    my $curl = &GnumericTest::find_program ("curl");
-    my $sha1sum = &GnumericTest::find_program ("sha1sum");
+    my $curl = GnumericTest::find_program ("curl");
+    my $sha1sum = GnumericTest::find_program ("sha1sum");
 
     foreach ([scalar &File::Basename::fileparse ($schema),
 	      "adc746cbb415ac3a17199442a15b38a5858fc7ef"],
@@ -174,10 +174,10 @@ sub download {
 	    my $cmd = "$curl -s -S -o $tmpfn $src/$b";
 	    print STDERR "# $cmd\n";
 	    my $code = system ("$cmd 2>&1 | sed -e 's/^/| /' ");
-	    &GnumericTest::system_failure ($curl, $code) if $code;
+	    GnumericTest::system_failure ($curl, $code) if $code;
 	}
 
-	my $cmd = &GnumericTest::quotearg ($sha1sum, ($had_it ? $fn : $tmpfn));
+	my $cmd = GnumericTest::quotearg ($sha1sum, ($had_it ? $fn : $tmpfn));
 	my $out = `$cmd 2>&1`;
 	die "$0: Unexpected output from $sha1sum\n" unless ($out =~ /^([a-f0-9]{40})\b/i);
 	my $act = lc ($1);
@@ -217,14 +217,14 @@ sub make_schema_ext {
 	exit 1;
     }
 
-    my $cmd = &GnumericTest::quotearg ("cp", $schema, $schema_ext);
+    my $cmd = GnumericTest::quotearg ("cp", $schema, $schema_ext);
     print STDERR "# $cmd\n";
     system ($cmd);
 
     $cmd =
-	"(cd " . &GnumericTest::quotearg ($dir) .
+	"(cd " . GnumericTest::quotearg ($dir) .
 	" && " .
-	&GnumericTest::quotearg ("patch", "-i", substr($schema_ext_patch,$o), substr($schema_ext,$o)) .
+	GnumericTest::quotearg ("patch", "-i", substr($schema_ext_patch,$o), substr($schema_ext,$o)) .
 	")";
     print STDERR "# $cmd\n";
     system ($cmd);
@@ -242,10 +242,10 @@ sub make_schema_patch {
     }
 
     my $cmd =
-	"(cd " . &GnumericTest::quotearg ($dir) .
+	"(cd " . GnumericTest::quotearg ($dir) .
 	" && " .
-	&GnumericTest::quotearg ("diff", "-u", substr($schema,$o), substr($schema_ext,$o)) .
-	" >" . &GnumericTest::quotearg (substr($schema_ext_patch,$o)) .
+	GnumericTest::quotearg ("diff", "-u", substr($schema,$o), substr($schema_ext,$o)) .
+	" >" . GnumericTest::quotearg (substr($schema_ext_patch,$o)) .
 	")";
     print STDERR "# $cmd\n";
     system ($cmd);

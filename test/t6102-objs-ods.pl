@@ -8,12 +8,12 @@ use GnumericTest;
 &message ("Check the ods exporter.");
 
 my $src = "$samples/excel/objs.xls";
-&GnumericTest::report_skip ("file $src does not exist") unless -r $src;
+GnumericTest::report_skip ("file $src does not exist") unless -r $src;
 
 my $tmp = $src;
 $tmp =~ s|^.*/||;
 $tmp =~ s|\..*|.ods|;
-&GnumericTest::junkfile ($tmp);
+GnumericTest::junkfile ($tmp);
 system ("$ssconvert $src $tmp");
 
 &test_exporter ($tmp);

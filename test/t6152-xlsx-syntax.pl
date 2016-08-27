@@ -27,10 +27,10 @@ if (!-r $drawing_schema) {
 }
 
 
-my $xmllint = &GnumericTest::find_program ("xmllint");
-my $unzip = &GnumericTest::find_program ("unzip");
+my $xmllint = GnumericTest::find_program ("xmllint");
+my $unzip = GnumericTest::find_program ("unzip");
 
-my @sources = &GnumericTest::corpus();
+my @sources = GnumericTest::corpus();
 # xmllint hangs on these files.  (Well, amath finishes but takes too
 # long.)
 @sources = grep { !m{(^|/)(amath|crlibm|gamma)\.gnumeric$} } @sources;
@@ -57,10 +57,10 @@ foreach my $src (@sources) {
     my $tmp = $src;
     $tmp =~ s|^.*/||;
     $tmp =~ s|\..*|.xlsx|;
-    &GnumericTest::junkfile ($tmp);
+    GnumericTest::junkfile ($tmp);
 
     {
-	my $cmd = &GnumericTest::quotearg ($ssconvert, '-T', $format, $src, $tmp);
+	my $cmd = GnumericTest::quotearg ($ssconvert, '-T', $format, $src, $tmp);
 	print STDERR "# $cmd\n" if $GnumericTest::verbose;
 	system ($cmd);
 	if (!-r $tmp) {
@@ -98,17 +98,17 @@ foreach my $src (@sources) {
 	my $out = `$cmd - 2>&1`;
 	if ($out ne '' && $out !~ /validates$/) {
 	    print STDERR "While checking $member from $tmp:\n";
-	    &GnumericTest::dump_indented ($out);
+	    GnumericTest::dump_indented ($out);
 	    $nbad++;
 	} else {
 	    $ngood++;
 	}
     }
 
-    &GnumericTest::removejunk ($tmp);
+    GnumericTest::removejunk ($tmp);
 }
 
-&GnumericTest::report_skip ("No source files present") if $nbad + $ngood == 0;
+GnumericTest::report_skip ("No source files present") if $nbad + $ngood == 0;
 
 if ($nskipped > 0) {
     print STDERR "$nskipped files skipped.\n";

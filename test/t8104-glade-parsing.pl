@@ -7,5 +7,5 @@ use GnumericTest;
 
 &message ("Check that glade files parse.");
 my $checker = "tools/check-glade-parsing";
-&GnumericTest::report_skip ("Missing tester") unless -r "$topsrc/$checker";
+GnumericTest::report_skip ("Missing tester") unless -r "$topsrc/$checker";
 &test_command ("cd $topsrc && $PERL $checker", sub { /^$/ });

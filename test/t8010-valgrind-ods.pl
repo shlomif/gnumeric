@@ -9,12 +9,12 @@ $GnumericTest::default_corpus = 'random:5';
 
 &message ("Check the ods importer/exporter with valgrind.");
 
-my $xmllint = &GnumericTest::find_program ("xmllint");
-my $unzip = &GnumericTest::find_program ("unzip");
+my $xmllint = GnumericTest::find_program ("xmllint");
+my $unzip = GnumericTest::find_program ("unzip");
 
 my $format = "Gnumeric_OpenCalc:odf";
 
-my @sources = &GnumericTest::corpus ();
+my @sources = GnumericTest::corpus ();
 my $nskipped = 0;
 my $ngood = 0;
 my $nbad = 0;
@@ -31,25 +31,25 @@ foreach my $src (@sources) {
 
     my $tmp1 = "$basenoext-tmp.ods";
     print STDERR "$basename -> $tmp1\n";
-    &GnumericTest::junkfile ($tmp1);
-    my $cmd = &GnumericTest::quotearg ($ssconvert, "-T", $format, $src, $tmp1);
+    GnumericTest::junkfile ($tmp1);
+    my $cmd = GnumericTest::quotearg ($ssconvert, "-T", $format, $src, $tmp1);
     my $err = &test_valgrind ($cmd, 1, 1);
 
     if (!$err && $basename !~ /\.ods$/) {
 	my $tmp2 = "$basenoext-tmp.gnumeric";
 	print STDERR "$tmp1 -> $tmp2\n";
-	&GnumericTest::junkfile ($tmp2);
+	GnumericTest::junkfile ($tmp2);
 
-	my $cmd = &GnumericTest::quotearg ($ssconvert, $tmp1, $tmp2);
+	my $cmd = GnumericTest::quotearg ($ssconvert, $tmp1, $tmp2);
 	$err = &test_valgrind ($cmd, 1, 1);
-	&GnumericTest::removejunk ($tmp2);
+	GnumericTest::removejunk ($tmp2);
     }
 
     $err ? $nbad++ : $ngood++;
-    &GnumericTest::removejunk ($tmp1);
+    GnumericTest::removejunk ($tmp1);
 }
 
-&GnumericTest::report_skip ("No source files present") if $nbad + $ngood == 0;
+GnumericTest::report_skip ("No source files present") if $nbad + $ngood == 0;
 
 if ($nskipped > 0) {
     print STDERR "$nskipped files skipped.\n";

@@ -9,7 +9,7 @@ use GnumericTest;
 
 my $src = "$samples/regress.gnumeric";
 my $tmp = "regress-resize.gnumeric";
-&GnumericTest::junkfile ($tmp);
+GnumericTest::junkfile ($tmp);
 
 # Shrink rows
 &test_command ("$ssconvert --resize=8192x256 $src $tmp", sub { 1 } );

@@ -10,9 +10,9 @@ use GnumericTest;
 &message ("Check some graph fitting with valgrind.");
 
 my $src = "$samples/chart-smooth-fit-tests.gnumeric";
-&GnumericTest::report_skip ("file $src does not exist") unless -r $src;
+GnumericTest::report_skip ("file $src does not exist") unless -r $src;
 
 my $tmp = "chart.xls";
-&GnumericTest::junkfile ($tmp);
+GnumericTest::junkfile ($tmp);
 
 &test_valgrind ("$ssconvert $src $tmp", 1);

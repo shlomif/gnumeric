@@ -9,9 +9,9 @@ use GnumericTest;
 $ENV{'G_SLICE'} = 'debug-blocks';
 
 my $src = "$samples/excel/statfuns.xls";
-&GnumericTest::report_skip ("file $src does not exist") unless -r $src;
+GnumericTest::report_skip ("file $src does not exist") unless -r $src;
 
 my $tmp = "statfuns.gnumeric";
-&GnumericTest::junkfile ($tmp);
+GnumericTest::junkfile ($tmp);
 
 &test_command ("$ssconvert --recalc $src $tmp", sub { 1 } );

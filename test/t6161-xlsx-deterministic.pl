@@ -8,9 +8,9 @@ use GnumericTest;
 &message ("Check that the xlsx exporter produces the same results every time.");
 
 my $format = "Gnumeric_Excel:xlsx";
-my $unzip = &GnumericTest::find_program ("unzip");
+my $unzip = GnumericTest::find_program ("unzip");
 
-my @sources = &GnumericTest::corpus();
+my @sources = GnumericTest::corpus();
 # datefuns and docs-samples use NOW(); the rest take too long.
 @sources = grep { !m{(^|/)(datefuns\.xls|(docs-samples|crlibm|gamma)\.gnumeric)$} } @sources;
 
@@ -32,7 +32,7 @@ foreach my $src (@sources) {
 	my $tmp = $src;
 	$tmp =~ s|^.*/||;
 	$tmp =~ s|\..*|-$i.xlsx|;
-	&GnumericTest::junkfile ($tmp);
+	GnumericTest::junkfile ($tmp);
 	my $cmd = "$ssconvert -T $format $src $tmp";
 	print STDERR "# $cmd\n" if $GnumericTest::verbose;
 	system ($cmd);
@@ -71,11 +71,11 @@ foreach my $src (@sources) {
 	# May contain timestamp
 	next if $member eq 'docProps/core.xml';
 
-	my $cmd1 = &GnumericTest::quotearg ($unzip, "-p", $tmp1, $member);
+	my $cmd1 = GnumericTest::quotearg ($unzip, "-p", $tmp1, $member);
 	print STDERR "# $cmd1\n" if $GnumericTest::verbose;
 	my $data1 = `$cmd1`;
 
-	my $cmd2 = &GnumericTest::quotearg ($unzip, "-p", $tmp2, $member);
+	my $cmd2 = GnumericTest::quotearg ($unzip, "-p", $tmp2, $member);
 	print STDERR "# $cmd2\n" if $GnumericTest::verbose;
 	my $data2 = `$cmd2`;
 
@@ -88,11 +88,11 @@ foreach my $src (@sources) {
 	$ngood++;
     }
 
-    &GnumericTest::removejunk ($tmp1);
-    &GnumericTest::removejunk ($tmp2);
+    GnumericTest::removejunk ($tmp1);
+    GnumericTest::removejunk ($tmp2);
 }
 
-&GnumericTest::report_skip ("No source files present") if $nbad + $ngood == 0;
+GnumericTest::report_skip ("No source files present") if $nbad + $ngood == 0;
 
 if ($nskipped > 0) {
     print STDERR "$nskipped files skipped.\n";

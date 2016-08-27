@@ -9,9 +9,9 @@ use GnumericTest;
 $ENV{'G_SLICE'} = 'debug-blocks';
 
 my $src = "$samples/regress.gnumeric";
-&GnumericTest::report_skip ("file $src does not exist") unless -r $src;
+GnumericTest::report_skip ("file $src does not exist") unless -r $src;
 
 my $tmp = "regress.xls";
-&GnumericTest::junkfile ($tmp);
+GnumericTest::junkfile ($tmp);
 
 &test_command ("$ssconvert --recalc $src $tmp", sub { 1 } );

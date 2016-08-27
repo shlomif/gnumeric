@@ -8,16 +8,16 @@ use GnumericTest;
 &message ("Check that vba roundtrips through xls");
 
 my $src = "$samples/vba-725220.xls";
-&GnumericTest::report_skip ("file $src does not exist") unless -r $src;
+GnumericTest::report_skip ("file $src does not exist") unless -r $src;
 
-my $gsf = &GnumericTest::find_program ("gsf");
+my $gsf = GnumericTest::find_program ("gsf");
 
 my $dir1 = &gsf_list ($src);
 
 my $tmp = $src;
 $tmp =~ s|^.*/||;
 $tmp =~ s|\..*|-tmp.xls|;
-&GnumericTest::junkfile ($tmp);
+GnumericTest::junkfile ($tmp);
 system ("$ssconvert $src $tmp");
 my $dir2 = &gsf_list ($tmp);
 

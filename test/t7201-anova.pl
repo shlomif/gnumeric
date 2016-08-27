@@ -11,7 +11,7 @@ my $expected;
 &message ("Check anova tool.");
 my $file = "$samples/nist/gear.gnumeric";
 
-&GnumericTest::test_tool ($file, 'anova',
+GnumericTest::test_tool ($file, 'anova',
 			  ['data' => 'Data!A1:j10'],
 			  undef,
 			  sub { $_[0] eq $expected; });
