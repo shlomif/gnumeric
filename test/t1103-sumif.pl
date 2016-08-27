@@ -7,4 +7,4 @@ use GnumericTest;
 
 my $file = "sumif.xls";
 message ("Check that $file evaluates correctly.");
-&test_sheet_calc ("$samples/$file", "C1", sub { !/\bbug\b/i });
+test_sheet_calc ("$samples/$file", "C1", sub { !/\bbug\b/i });

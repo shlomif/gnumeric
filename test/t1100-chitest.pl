@@ -7,4 +7,4 @@ use GnumericTest;
 
 my $file = "chitest.xls";
 message ("Check that $file evaluates correctly.");
-&test_sheet_calc ("$samples/$file", "A1", sub { /\bOK\b/i });
+test_sheet_calc ("$samples/$file", "A1", sub { /\bOK\b/i });

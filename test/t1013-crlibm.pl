@@ -7,4 +7,4 @@ use GnumericTest;
 
 my $file = "crlibm.gnumeric";
 message ("Check that $file evaluates correctly.");
-&test_sheet_calc ("$samples/$file", "D1", sub { $_ > 15 });
+test_sheet_calc ("$samples/$file", "D1", sub { $_ > 15 });

@@ -9,14 +9,14 @@ my $file = "$samples/style-tests.gnumeric";
 
 if (&subtest ("gnumeric")) {
     message ("Check style gnumeric roundtrip.");
-    &test_roundtrip ($file,
+    test_roundtrip ($file,
 		     'format' => 'Gnumeric_XmlIO:sax',
 		     'ext' => "gnm");
 }
 
 if (&subtest ("ods")) {
     message ("Check style ods roundtrip.");
-    &test_roundtrip ($file,
+    test_roundtrip ($file,
 		     'format' => 'Gnumeric_OpenCalc:odf',
 		     'ext' => "ods",
 		     'filter2' => 'std:drop_generator');
@@ -36,7 +36,7 @@ my $xls_pattern_filter = "$PERL -p -e 'use English; my \%m=(19,14,20,7,21,4,22,4
 
 if (&subtest ("biff7")) {
     message ("Check style xls/BIFF7 roundtrip.");
-    &test_roundtrip ($file,
+    test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff7',
 		     'ext' => "xls",
 		     'resize' => '16384x256',
@@ -46,7 +46,7 @@ if (&subtest ("biff7")) {
 
 if (&subtest ("biff8")) {
     message ("Check style xls/BIFF8 roundtrip.");
-    &test_roundtrip ($file,
+    test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:excel_biff8',
 		     'ext' => "xls",
 		     'filter1' => $xls_pattern_filter,
@@ -55,7 +55,7 @@ if (&subtest ("biff8")) {
 
 if (&subtest ("xlsx")) {
     message ("Check style xlsx roundtrip.");
-    &test_roundtrip ($file,
+    test_roundtrip ($file,
 		     'format' => 'Gnumeric_Excel:xlsx',
 		     'ext' => "xlsx",
 		     'resize' => '1048576x16384',

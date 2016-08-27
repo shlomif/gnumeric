@@ -7,4 +7,4 @@ use GnumericTest;
 
 my $file = "finfuns.xls";
 message ("Check that $file evaluates correctly.");
-&test_sheet_calc ("$samples/excel/$file", "A4", sub { /All ok/i });
+test_sheet_calc ("$samples/excel/$file", "A4", sub { /All ok/i });

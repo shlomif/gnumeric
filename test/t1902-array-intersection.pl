@@ -7,4 +7,4 @@ use GnumericTest;
 
 my $file = "array-intersection.xls";
 message ("Check that $file evaluates correctly.");
-&test_sheet_calc ("$samples/$file", "A1", sub { /TRUE/ });
+test_sheet_calc ("$samples/$file", "A1", sub { /TRUE/ });

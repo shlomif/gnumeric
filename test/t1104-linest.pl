@@ -7,4 +7,4 @@ use GnumericTest;
 
 my $file = "linest.xls";
 message ("Check that $file evaluates correctly.");
-&test_sheet_calc ("$samples/$file", "A1", sub { /\bOk\!/i });
+test_sheet_calc ("$samples/$file", "A1", sub { /\bOk\!/i });

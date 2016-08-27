@@ -15,4 +15,4 @@ GnumericTest::report_skip ("file $src does not exist") unless -r $src;
 my $tmp = "chart.xls";
 GnumericTest::junkfile ($tmp);
 
-&test_valgrind ("$ssconvert $src $tmp", 1);
+test_valgrind ("$ssconvert $src $tmp", 1);

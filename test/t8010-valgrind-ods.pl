@@ -33,7 +33,7 @@ foreach my $src (@sources) {
     print STDERR "$basename -> $tmp1\n";
     GnumericTest::junkfile ($tmp1);
     my $cmd = GnumericTest::quotearg ($ssconvert, "-T", $format, $src, $tmp1);
-    my $err = &test_valgrind ($cmd, 1, 1);
+    my $err = test_valgrind ($cmd, 1, 1);
 
     if (!$err && $basename !~ /\.ods$/) {
 	my $tmp2 = "$basenoext-tmp.gnumeric";
@@ -41,7 +41,7 @@ foreach my $src (@sources) {
 	GnumericTest::junkfile ($tmp2);
 
 	my $cmd = GnumericTest::quotearg ($ssconvert, $tmp1, $tmp2);
-	$err = &test_valgrind ($cmd, 1, 1);
+	$err = test_valgrind ($cmd, 1, 1);
 	GnumericTest::removejunk ($tmp2);
     }
 

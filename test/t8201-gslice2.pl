@@ -14,4 +14,4 @@ GnumericTest::report_skip ("file $src does not exist") unless -r $src;
 my $tmp = "statfuns2.xls";
 GnumericTest::junkfile ($tmp);
 
-&test_command ("$ssconvert --recalc $src $tmp", sub { 1 } );
+test_command ("$ssconvert --recalc $src $tmp", sub { 1 } );

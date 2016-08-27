@@ -14,4 +14,4 @@ GnumericTest::report_skip ("file $src does not exist") unless -r $src;
 my $tmp = "statfuns.gnumeric";
 GnumericTest::junkfile ($tmp);
 
-&test_command ("$ssconvert $src $tmp", sub { 1 } );
+test_command ("$ssconvert $src $tmp", sub { 1 } );

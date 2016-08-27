@@ -8,4 +8,4 @@ use GnumericTest;
 message ("Check that glade files start out not visible.");
 my $checker = "tools/check-glade-visible";
 GnumericTest::report_skip ("Missing tester") unless -r "$topsrc/$checker";
-&test_command ("cd $topsrc && $PERL $checker", sub { /^$/ });
+test_command ("cd $topsrc && $PERL $checker", sub { /^$/ });

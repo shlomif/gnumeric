@@ -7,4 +7,4 @@ use GnumericTest;
 
 my $file = "regress.gnumeric";
 message ("Check that $file evaluates correctly.");
-&test_sheet_calc ("$samples/$file", "C2", sub { /No/i });
+test_sheet_calc ("$samples/$file", "C2", sub { /No/i });
