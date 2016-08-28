@@ -267,7 +267,7 @@ sub test_command {
 
     dump_indented ($output);
     local $_ = $output;
-    if (&$test ($output)) {
+    if ($test->($output)) {
 	print STDERR "Pass\n";
     } else {
 	die "Fail\n";
@@ -288,7 +288,7 @@ sub sstest {
     my $ok;
     if (ref $expected) {
 	local $_ = $actual;
-	$ok = &$expected ($_);
+	$ok = $expected->($_);
 	if (!$ok) {
 	    foreach (split ("\n", $actual)) {
 		print "| $_\n";
@@ -352,7 +352,7 @@ sub test_sheet_calc {
     my $ok;
     if (ref $expected) {
 	local $_ = $actual;
-	$ok = &$expected ($_);
+	$ok = $expected->($_);
     } else {
 	$ok = ($actual eq $expected);
     }
@@ -820,7 +820,7 @@ sub test_ssindex {
     }
 
     local $_ = \@items;
-    if (&$test ($_)) {
+    if ($test->($_)) {
 	print STDERR "Pass\n";
     } else {
       FAIL:
@@ -855,7 +855,7 @@ sub test_tool {
 
     removejunk ($tmp);
 
-    if (&$test ($actual)) {
+    if ($test->($actual)) {
 	print STDERR "Pass\n";
     } else {
 	GnumericTest::dump_indented ($actual);
