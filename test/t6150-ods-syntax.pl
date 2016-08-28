@@ -21,13 +21,13 @@ my $schema_ext_patch = "$topsrc/test/ods-ext-schema.patch";
 
 my $cmd = ($ARGV[0] || '-');
 if ($cmd eq 'download') {
-    &download ();
+    download ();
     exit 0;
 } elsif ($cmd eq 'make-schema-patch') {
-    &make_schema_patch ();
+    make_schema_patch ();
     exit 0;
 } elsif ($cmd eq 'make-schema-ext') {
-    &make_schema_ext ();
+    make_schema_ext ();
     exit 0;
 } 
 
@@ -154,9 +154,9 @@ sub download {
     my $curl = GnumericTest::find_program ("curl");
     my $sha1sum = GnumericTest::find_program ("sha1sum");
 
-    foreach ([scalar &File::Basename::fileparse ($schema),
+    foreach ([scalar File::Basename::fileparse ($schema),
 	      "adc746cbb415ac3a17199442a15b38a5858fc7ef"],
-	     [scalar &File::Basename::fileparse ($schema_manifest),
+	     [scalar File::Basename::fileparse ($schema_manifest),
 	      "661ab5bc695f9a8266e89cdf2747d8d76eacfedf"],
 	) {
 	my ($b,$sum) = @$_;
@@ -197,7 +197,7 @@ sub download {
 	}
     }
 
-    &make_schema_ext () unless -e $schema_ext;
+    make_schema_ext () unless -e $schema_ext;
 }
 
 # -----------------------------------------------------------------------------

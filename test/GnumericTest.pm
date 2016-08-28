@@ -105,7 +105,7 @@ sub update_file {
     my @stat = stat $fn;
     die "Cannot stat $fn: $!\n" unless @stat > 2;
 
-    &write_file ($fn,$contents);
+    write_file ($fn,$contents);
 
     chmod $stat[2], $fn or
 	die "Cannot chmod $fn: $!\n";
@@ -134,7 +134,7 @@ sub find_program {
 	}
     }
 
-    &report_skip ("$p is missing");
+    report_skip ("$p is missing");
 }
 
 # -----------------------------------------------------------------------------
@@ -265,7 +265,7 @@ sub test_command {
     my $err = $?;
     die "Failed command: $cmd\n" if $err;
 
-    &dump_indented ($output);
+    dump_indented ($output);
     local $_ = $output;
     if (&$test ($output)) {
 	print STDERR "Pass\n";
@@ -280,7 +280,7 @@ sub sstest {
     my $test = shift @_;
     my $expected = shift @_;
 
-    my $cmd = &quotearg ($sstest, $test);
+    my $cmd = quotearg ($sstest, $test);
     my $actual = `$cmd 2>&1`;
     my $err = $?;
     die "Failed command: $cmd\n" if $err;
@@ -336,18 +336,18 @@ sub test_sheet_calc {
     my $pargs = (ref $_[0]) ? shift @_ : [];
     my ($range,$expected) = @_;
 
-    &report_skip ("file $file does not exist") unless -r $file;
+    report_skip ("file $file does not exist") unless -r $file;
 
     my $tmp = fileparse ($file);
     $tmp =~ s/\.[a-zA-Z0-9]+$/.csv/;
-    &junkfile ($tmp);
+    junkfile ($tmp);
 
-    my $cmd = "$ssconvert " . &quotearg (@$pargs, '--recalc', "--export-range=$range", $file, $tmp);
+    my $cmd = "$ssconvert " . quotearg (@$pargs, '--recalc', "--export-range=$range", $file, $tmp);
     print STDERR "# $cmd\n" if $verbose;
     my $code = system ("$cmd 2>&1 | sed -e 's/^/| /' ");
-    &system_failure ($ssconvert, $code) if $code;
+    system_failure ($ssconvert, $code) if $code;
 
-    my $actual = &read_file ($tmp);
+    my $actual = read_file ($tmp);
 
     my $ok;
     if (ref $expected) {
@@ -357,13 +357,13 @@ sub test_sheet_calc {
 	$ok = ($actual eq $expected);
     }
 
-    &removejunk ($tmp);
+    removejunk ($tmp);
 
     if ($ok) {
 	print STDERR "Pass\n";
     } else {
 	$actual =~ s/\s+$//;
-	&dump_indented ($actual);
+	dump_indented ($actual);
 	die "Fail.\n\n";
     }
 }
@@ -388,13 +388,13 @@ sub test_importer {
 	    die "Cannot create $import_db: $!\n";
 	$tmp = "$import_db/$tmp";
     } else {
-	&junkfile ($tmp);
+	junkfile ($tmp);
     }
 
-    &report_skip ("file $file does not exist") unless -r $file;
+    report_skip ("file $file does not exist") unless -r $file;
 
     my $code = system ("$ssconvert '$file' '$tmp' 2>&1 | sed -e 's/^/| /'");
-    &system_failure ($ssconvert, $code) if $code;
+    system_failure ($ssconvert, $code) if $code;
 
     my $htxt = `zcat -f '$tmp' | $normalize_gnumeric | sha1sum`;
     my $newsha1 = lc substr ($htxt, 0, 40);
@@ -416,32 +416,32 @@ sub test_importer {
 	die "$saved not found\n" unless -r $saved;
 
 	my $tmp1 = "$tmp-old";
-	&junkfile ($tmp1);
+	junkfile ($tmp1);
 	my $code1 = system ("zcat -f '$saved' >'$tmp1'");
-	&system_failure ('zcat', $code1) if $code1;
+	system_failure ('zcat', $code1) if $code1;
 
 	my $tmp2 = "$tmp-new";
-	&junkfile ($tmp2);
+	junkfile ($tmp2);
 	my $code2 = system ("zcat -f '$tmp' >'$tmp2'");
-	&system_failure ('zcat', $code2) if $code2;
+	system_failure ('zcat', $code2) if $code2;
 
 	my $code3 = system ('diff', @ARGV, $tmp1, $tmp2);
 
-	&removejunk ($tmp2);
-	&removejunk ($tmp1);
+	removejunk ($tmp2);
+	removejunk ($tmp1);
     } elsif ($mode =~ /^update-(sha|SHA)-?1/) {
 	if ($sha1 ne $newsha1) {
-	    my $script = &read_file ($0);
+	    my $script = read_file ($0);
 	    my $count = ($script =~ s/\b$sha1\b/$newsha1/g);
 	    die "SHA-1 found in script $count times\n" unless $count == 1;
-	    &update_file ($0, $script);
+	    update_file ($0, $script);
 	}
 	return;
     } else {
 	die "Invalid mode \"$mode\"\n";
     }
 
-    &removejunk ($tmp);
+    removejunk ($tmp);
 }
 
 # -----------------------------------------------------------------------------
@@ -449,7 +449,7 @@ sub test_importer {
 sub test_exporter {
     my ($file) = @_;
 
-    &report_skip ("file $file does not exist") unless -r $file;
+    report_skip ("file $file does not exist") unless -r $file;
 
     my $tmp = fileparse ($file);
     $tmp =~ s/\.([a-zA-Z0-9]+)$// or die "Must have extension for export test.";
@@ -458,44 +458,44 @@ sub test_exporter {
     my $keep = 0;
 
     my $tmp1 = "$tmp.gnumeric";
-    &junkfile ($tmp1) unless $keep;
+    junkfile ($tmp1) unless $keep;
     {
-	my $cmd = &quotearg ($ssconvert, $file, $tmp1);
+	my $cmd = quotearg ($ssconvert, $file, $tmp1);
 	print STDERR "# $cmd\n" if $verbose;
 	my $code = system ("$cmd 2>&1 | sed -e 's/^/| /'");
-	&system_failure ($ssconvert, $code) if $code;
+	system_failure ($ssconvert, $code) if $code;
     }
 
     my $tmp2 = "$tmp-new.$ext";
-    &junkfile ($tmp2) unless $keep;
+    junkfile ($tmp2) unless $keep;
     {
-	my $cmd = &quotearg ($ssconvert, $file, $tmp2);
+	my $cmd = quotearg ($ssconvert, $file, $tmp2);
 	print STDERR "# $cmd\n" if $verbose;
 	my $code = system ("$cmd 2>&1 | sed -e 's/^/| /'");
-	&system_failure ($ssconvert, $code) if $code;
+	system_failure ($ssconvert, $code) if $code;
     }
 
     my $tmp3 = "$tmp-new.gnumeric";
-    &junkfile ($tmp3) unless $keep;
+    junkfile ($tmp3) unless $keep;
     {
-	my $cmd = &quotearg ($ssconvert, $tmp2, $tmp3);
+	my $cmd = quotearg ($ssconvert, $tmp2, $tmp3);
 	print STDERR "# $cmd\n" if $verbose;
 	my $code = system ("$cmd 2>&1 | sed -e 's/^/| /'");
-	&system_failure ($ssconvert, $code) if $code;
+	system_failure ($ssconvert, $code) if $code;
     }
 
     my $tmp4 = "$tmp.xml";
-    &junkfile ($tmp4) unless $keep;
-    $code = system (&quotearg ("zcat", "-f", $tmp1) . " >" . &quotearg ($tmp4));
-    &system_failure ('zcat', $code) if $code;
+    junkfile ($tmp4) unless $keep;
+    $code = system (quotearg("zcat", "-f", $tmp1) . " >" . quotearg($tmp4));
+    system_failure ('zcat', $code) if $code;
 
     my $tmp5 = "$tmp-new.xml";
-    &junkfile ($tmp5) unless $keep;
-    $code = system (&quotearg ("zcat" , "-f", $tmp3) . " >" . &quotearg ($tmp5));
-    &system_failure ('zcat', $code) if $code;
+    junkfile ($tmp5) unless $keep;
+    $code = system (quotearg("zcat" , "-f", $tmp3) . " >" . quotearg($tmp5));
+    system_failure ('zcat', $code) if $code;
 
     $code = system ('diff', '-u', $tmp4, $tmp5);
-    &system_failure ('diff', $code) if $code;
+    system_failure ('diff', $code) if $code;
 
     print STDERR "Pass\n";
 }
@@ -509,14 +509,14 @@ sub test_csv_format_guessing {
     my $keep = 0;
 
     my $datafn = "test-data.csv";
-    &junkfile ($datafn) unless $keep;
-    &write_file ($datafn, $data);
+    junkfile ($datafn) unless $keep;
+    write_file ($datafn, $data);
 
     my $outfn = "test-data.gnumeric";
-    &junkfile ($outfn) unless $keep;
+    junkfile ($outfn) unless $keep;
 
     local $ENV{'GNM_DEBUG'} = 'stf';
-    my $cmd = &quotearg ($ssconvert, $datafn, $outfn);
+    my $cmd = quotearg ($ssconvert, $datafn, $outfn);
     print STDERR "# $cmd\n" if $verbose;
     my $out = `$cmd 2>&1`;
 
@@ -564,8 +564,8 @@ sub test_csv_format_guessing {
 	die "Guessed wrong thousands separator: $guessed\n" unless $ok;
     }
 
-    &removejunk ($outfn) unless $keep;
-    &removejunk ($datafn) unless $keep;
+    removejunk ($outfn) unless $keep;
+    removejunk ($datafn) unless $keep;
 }
 
 # -----------------------------------------------------------------------------
@@ -610,17 +610,17 @@ sub normalize_filter {
 sub test_roundtrip {
     my ($file,%named_args) = @_;
 
-    &report_skip ("file $file does not exist") unless -r $file;
+    report_skip ("file $file does not exist") unless -r $file;
 
     my $format = $named_args{'format'};
     my $newext = $named_args{'ext'};
     my $resize = $named_args{'resize'};
     my $ignore_failure = $named_args{'ignore_failure'};
 
-    my $filter0 = &normalize_filter ($named_args{'filter0'});
-    my $filter1 = &normalize_filter ($named_args{'filter1'} ||
+    my $filter0 = normalize_filter ($named_args{'filter0'});
+    my $filter1 = normalize_filter ($named_args{'filter1'} ||
 				     $named_args{'filter'});
-    my $filter2 = &normalize_filter ($named_args{'filter2'} ||
+    my $filter2 = normalize_filter ($named_args{'filter2'} ||
 				     $named_args{'filter'});
 
     my $tmp = fileparse ($file);
@@ -634,12 +634,12 @@ sub test_roundtrip {
 	$file_resized =~ s{^.*/}{};
 	$file_resized =~ s/(\.gnumeric)$/-resize$1/;
 	unlink $file_resized;
-	my $cmd = &quotearg ($ssconvert, "--resize", $resize, $file, $file_resized);
+	my $cmd = quotearg ($ssconvert, "--resize", $resize, $file, $file_resized);
 	print STDERR "# $cmd\n" if $verbose;
 	$code = system ("$cmd 2>&1 | sed -e 's/^/| /'");
-	&system_failure ($ssconvert, $code) if $code;
+	system_failure ($ssconvert, $code) if $code;
 	die "Failed to produce $file_resized\n" unless -r $file_resized;
-	&junkfile ($file_resized) unless $keep;
+	junkfile ($file_resized) unless $keep;
     }
 
     my $file_filtered = $file_resized;
@@ -647,51 +647,51 @@ sub test_roundtrip {
 	$file_filtered =~ s{^.*/}{};
 	$file_filtered =~ s/(\.gnumeric)$/-filter$1/;
 	unlink $file_filtered;
-	my $cmd = "zcat " . &quotearg ($file_resized) . " | $filter0 >" . &quotearg ($file_filtered);
+	my $cmd = "zcat " . quotearg ($file_resized) . " | $filter0 >" . quotearg ($file_filtered);
 	print STDERR "# $cmd\n" if $verbose;
 	$code = system ("($cmd) 2>&1 | sed -e 's/^/| /'");
-	&system_failure ($ssconvert, $code) if $code;
+	system_failure ($ssconvert, $code) if $code;
 	die "Failed to produce $file_filtered\n" unless -r $file_filtered;
-	&junkfile ($file_filtered) unless $keep;
+	junkfile ($file_filtered) unless $keep;
     }
     
     my $tmp1 = "$tmp.$newext";
     unlink $tmp1;
-    &junkfile ($tmp1) unless $keep;
+    junkfile ($tmp1) unless $keep;
     {
-	my $cmd = &quotearg ($ssconvert, "-T", $format, $file_filtered, $tmp1);
+	my $cmd = quotearg ($ssconvert, "-T", $format, $file_filtered, $tmp1);
 	print "# $cmd\n" if $verbose;
 	my $code = system ("$cmd 2>&1 | sed -e 's/^/| /'");
-	&system_failure ($ssconvert, $code) if $code;
+	system_failure ($ssconvert, $code) if $code;
 	die "Failed to produce $tmp1\n" unless -r $tmp1;
     }
 
     my $tmp2 = "$tmp-new.$ext";
     unlink $tmp2;
-    &junkfile ($tmp2) unless $keep;
+    junkfile ($tmp2) unless $keep;
     {
-	my $cmd = &quotearg ($ssconvert, $tmp1, $tmp2);
+	my $cmd = quotearg ($ssconvert, $tmp1, $tmp2);
 	print "# $cmd\n" if $verbose;
 	my $code = system ("$cmd 2>&1 | sed -e 's/^/| /'");
-	&system_failure ($ssconvert, $code) if $code;
+	system_failure ($ssconvert, $code) if $code;
 	die "Failed to produce $tmp2\n" unless -r $tmp2;
     }
 
     my $tmp_xml = "$tmp.xml";
     unlink $tmp_xml;
-    &junkfile ($tmp_xml) unless $keep;
+    junkfile ($tmp_xml) unless $keep;
     $code = system ("zcat -f '$file_filtered' | $normalize_gnumeric | $filter1 >'$tmp_xml'");
-    &system_failure ('zcat', $code) if $code;
+    system_failure ('zcat', $code) if $code;
 
     my $tmp2_xml = "$tmp-new.xml";
     unlink $tmp2_xml;
-    &junkfile ($tmp2_xml) unless $keep;
+    junkfile ($tmp2_xml) unless $keep;
     # print STDERR "zcat -f '$tmp2' | $normalize_gnumeric | $filter2 >'$tmp2_xml'\n";
     $code = system ("zcat -f '$tmp2' | $normalize_gnumeric | $filter2 >'$tmp2_xml'");
-    &system_failure ('zcat', $code) if $code;
+    system_failure ('zcat', $code) if $code;
 
     $code = system ('diff', '-u', $tmp_xml, $tmp2_xml);
-    &system_failure ('diff', $code) if $code && !$ignore_failure;
+    system_failure ('diff', $code) if $code && !$ignore_failure;
 
     print STDERR "Pass\n";
 }
@@ -709,23 +709,23 @@ sub test_valgrind {
     my $outfile = 'valgrind.log';
     unlink $outfile;
     die "Cannot remove $outfile.\n" if -f $outfile;
-    &junkfile ($outfile);
+    junkfile ($outfile);
 
     my $valhelp = `valgrind --help 2>&1`;
-    &report_skip ("Valgrind is not available") unless defined $valhelp;
+    report_skip ("Valgrind is not available") unless defined $valhelp;
     die "Problem running valgrind.\n" unless $valhelp =~ /log-file/;
 
     my $valvers = `valgrind --version`;
     die "Problem running valgrind.\n"
 	unless $valvers =~ /^valgrind-(\d+)\.(\d+)\.(\d+)/;
     $valvers = $1 * 10000 + $2 * 100 + $3;
-    &report_skip ("Valgrind is too old") unless $valvers >= 30500;
+    report_skip ("Valgrind is too old") unless $valvers >= 30500;
 
     $cmd = "--gen-suppressions=all $cmd";
 
     {
 	my $suppfile = "$topsrc/test/common.supp";
-	&report_skip ("file $suppfile does not exist") unless -r $suppfile;
+	report_skip ("file $suppfile does not exist") unless -r $suppfile;
 	$cmd = "--suppressions=$suppfile $cmd" if -r $suppfile;
     }
 
@@ -749,20 +749,20 @@ sub test_valgrind {
     $cmd = "../libtool --mode=execute $cmd" if $uselibtool;
 
     my $code = system ($cmd);
-    &system_failure ('valgrind', $code) if $code;
+    system_failure ('valgrind', $code) if $code;
 
-    my $txt = &read_file ($outfile);
-    &removejunk ($outfile);
+    my $txt = read_file ($outfile);
+    removejunk ($outfile);
     my $errors = ($txt =~ /ERROR\s+SUMMARY:\s*(\d+)\s+errors?/i)
 	? $1
 	: -1;
     if ($errors == 0) {
-	# &dump_indented ($txt);
+	# dump_indented ($txt);
 	print STDERR "Pass\n" unless $qreturn;
 	return 0;
     }
 
-    &dump_indented ($txt);
+    dump_indented ($txt);
     die "Fail\n" unless $qreturn;
     return 1;
 }
@@ -772,25 +772,25 @@ sub test_valgrind {
 sub test_ssindex {
     my ($file,$test) = @_;
 
-    &report_skip ("file $file does not exist") unless -r $file;
+    report_skip ("file $file does not exist") unless -r $file;
 
     my $xmlfile = fileparse ($file);
     $xmlfile =~ s/\.[a-zA-Z0-9]+$/.xml/;
     unlink $xmlfile;
     die "Cannot remove $xmlfile.\n" if -f $xmlfile;
-    &junkfile ($xmlfile);
+    junkfile ($xmlfile);
 
     {
-	my $cmd = &quotearg ($ssindex, "--index", $file);
+	my $cmd = quotearg ($ssindex, "--index", $file);
 	my $output = `$cmd 2>&1 >'$xmlfile'`;
 	my $err = $?;
-	&dump_indented ($output);
+	dump_indented ($output);
 	die "Failed command: $cmd\n" if $err;
     }
 
     my $parser = new XML::Parser ('Style' => 'Tree');
     my $tree = $parser->parsefile ($xmlfile);
-    &removejunk ($xmlfile);
+    removejunk ($xmlfile);
 
     my @items;
 
@@ -833,7 +833,7 @@ sub test_ssindex {
 sub test_tool {
     my ($file,$tool,$tool_args,$range,$test) = @_;
 
-    &report_skip ("file $file does not exist") unless -r $file;
+    report_skip ("file $file does not exist") unless -r $file;
 
     my @args;
     push @args, "--export-range=$range" if defined $range;
@@ -845,15 +845,15 @@ sub test_tool {
     }
 
     my $tmp = "tool.csv";
-    &junkfile ($tmp);
+    junkfile ($tmp);
 
-    my $cmd = &quotearg ($ssconvert, @args, $file, $tmp);
+    my $cmd = quotearg ($ssconvert, @args, $file, $tmp);
     print STDERR "# $cmd\n" if $GnumericTest::verbose;
     my $code = system ($cmd);
-    &system_failure ($ssconvert, $code) if $code;
-    my $actual = &read_file ($tmp);
+    system_failure ($ssconvert, $code) if $code;
+    my $actual = read_file ($tmp);
 
-    &removejunk ($tmp);
+    removejunk ($tmp);
 
     if (&$test ($actual)) {
 	print STDERR "Pass\n";
@@ -864,7 +864,7 @@ sub test_tool {
 }
 
 sub quotearg {
-    return join (' ', map { &quotearg1 ($_) } @_);
+    return join (' ', map { quotearg1 ($_) } @_);
 }
 
 sub quotearg1 {
@@ -897,7 +897,7 @@ sub report_skip {
 # -----------------------------------------------------------------------------
 # Setup a consistent environment
 
-&report_skip ("all tests skipped") if exists $ENV{'GNUMERIC_SKIP_TESTS'};
+report_skip ("all tests skipped") if exists $ENV{'GNUMERIC_SKIP_TESTS'};
 
 delete $ENV{'G_SLICE'};
 $ENV{'G_DEBUG'} = 'fatal_criticals';
