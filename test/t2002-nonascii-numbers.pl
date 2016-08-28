@@ -9,7 +9,7 @@ my $expected;
 { local $/; $expected = <DATA>; }
 
 message ("Checking handling of non-ascii numbers.");
-&sstest ("test_nonascii_numbers", $expected);
+sstest ("test_nonascii_numbers", $expected);
 
 __DATA__
 -----------------------------------------------------------------------------

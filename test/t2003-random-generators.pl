@@ -21,4 +21,4 @@ sub expected {
 }
 
 message ("Checking random number generators.");
-&sstest ("test_random", \&expected);
+sstest ("test_random", \&expected);

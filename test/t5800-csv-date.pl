@@ -7,7 +7,7 @@ use GnumericTest;
 
 message ("Check the csv importer.");
 
-&test_csv_format_guessing
+test_csv_format_guessing
     (data => <<DATA, format => sub { /^d.*m.*y.*$/i; } );
 "Date"
 "1/2/3"
@@ -15,7 +15,7 @@ message ("Check the csv importer.");
 "31/12/2000"
 DATA
 
-&test_csv_format_guessing
+test_csv_format_guessing
     (data => <<DATA, format => sub { /^m.*d.*y.*$/i; } );
 "Date"
 "1/2/3"
@@ -23,7 +23,7 @@ DATA
 "12/31/2000"
 DATA
 
-&test_csv_format_guessing
+test_csv_format_guessing
     (data => <<DATA, format => sub { /^y.*m.*d.*$/i; } );
 "Date"
 "2000-12-01"

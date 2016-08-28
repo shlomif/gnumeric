@@ -6,4 +6,4 @@ use lib ($0 =~ m|^(.*/)| ? $1 : ".");
 use GnumericTest;
 
 message ("Check the xls exporter.");
-&test_exporter ("$samples/excel/objs.xls");
+test_exporter ("$samples/excel/objs.xls");

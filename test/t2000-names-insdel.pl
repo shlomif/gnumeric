@@ -9,7 +9,7 @@ my $expected;
 { local $/; $expected = <DATA>; }
 
 message ("Check insert/delete col/row's effect on names.");
-&sstest ("test_insdel_rowcol_names", $expected);
+sstest ("test_insdel_rowcol_names", $expected);
 
 __DATA__
 -----------------------------------------------------------------------------

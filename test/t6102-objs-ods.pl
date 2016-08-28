@@ -16,4 +16,4 @@ $tmp =~ s|\..*|.ods|;
 GnumericTest::junkfile ($tmp);
 system ("$ssconvert $src $tmp");
 
-&test_exporter ($tmp);
+test_exporter ($tmp);

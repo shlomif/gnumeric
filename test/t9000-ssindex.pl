@@ -7,12 +7,12 @@ use GnumericTest;
 
 message ("Check ssindex.");
 
-sub uniq { my %h; map { $h{$_} = 1} @_; return keys %h; }
+sub uniq { my %h; $h{$_} = 1 for @_; return keys %h; }
 
 sub compare_items {
     my ($p1,$p2) = @_;
-    $p1 = [sort (&uniq (@$p1))];
-    $p2 = [sort (&uniq (@$p2))];
+    $p1 = [sort (uniq( @$p1 ))];
+    $p2 = [sort (uniq( @$p2 ))];
     return 0 unless @$p1 eq @$p2;
     while (@$p1) {
 	return 0 unless shift (@$p1) eq shift (@$p2);
@@ -47,5 +47,5 @@ my @expected_statfuns =
      'Sheet8', 'Sheet9', 'Sheet_Title',
      );
 
-&test_ssindex ("$samples/excel/statfuns.xls",
+test_ssindex ("$samples/excel/statfuns.xls",
 	       (sub { &compare_items ($_, \@expected_statfuns); }));
