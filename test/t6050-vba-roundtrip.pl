@@ -12,14 +12,14 @@ GnumericTest::report_skip ("file $src does not exist") unless -r $src;
 
 my $gsf = GnumericTest::find_program ("gsf");
 
-my $dir1 = &gsf_list ($src);
+my $dir1 = gsf_list ($src);
 
 my $tmp = $src;
 $tmp =~ s|^.*/||;
 $tmp =~ s|\..*|-tmp.xls|;
 GnumericTest::junkfile ($tmp);
 system ("$ssconvert $src $tmp");
-my $dir2 = &gsf_list ($tmp);
+my $dir2 = gsf_list ($tmp);
 
 foreach my $f (sort keys %$dir1) {
     next unless ($f eq "\001Ole" ||

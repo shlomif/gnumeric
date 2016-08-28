@@ -28,7 +28,7 @@ my $base_prob = 1 / 1000;
 my $seed = undef;
 
 Getopt::Long::Configure ("bundling");
-&GetOptions ("s|seed=i" => \$seed,
+GetOptions ("s|seed=i" => \$seed,
 	     "r|rate=f" => \$base_prob,
     );
 srand ($seed) if defined $seed;
@@ -50,7 +50,7 @@ my %attr_range;
 my $tree;
 my $encoding;
 {
-    my $parser = new XML::Parser ('Style' => 'Tree');
+    my $parser = XML::Parser->new('Style' => 'Tree');
     $parser->setHandlers('Start' => \&MyStart,
 			 'XMLDecl' => sub {
 			     my ($expat,$ver,$enc,$standalone) = @_;
@@ -59,21 +59,21 @@ my $encoding;
     $tree = $parser->parsefile ($infile);
 }
 
-&study_tags ($tree);
+study_tags ($tree);
 foreach my $key (sort keys %attr_range) {
     $attr_range{$key} = [sort keys %{$attr_range{$key}}];
 }
 
-&fuzz_tags ($tree);
+fuzz_tags ($tree);
 
 {
     my $f = new IO::File ($outfile, "w");
-    my $writer = new XML::Writer(OUTPUT => $f,
+    my $writer = XML::Writer->new(OUTPUT => $f,
 				 ENCODING => $encoding);
     if (defined $encoding) {
 	$writer->xmlDecl();
     }
-    &write_xml ($writer, $tree);
+    write_xml ($writer, $tree);
 }
 
 # -----------------------------------------------------------------------------
@@ -81,8 +81,8 @@ foreach my $key (sort keys %attr_range) {
 sub fuzz_tags {
     my ($pl) = @_;
 
-    if (@$pl > 2 && &doit ($permute_tags_prob)) {
-	my @p = &random_permutation (@$pl / 2);
+    if (@$pl > 2 && doit ($permute_tags_prob)) {
+	my @p = random_permutation (@$pl / 2);
 	my @l2 = ();
 	foreach my $i (@p) {
 	    push @l2, $pl->[$i * 2], $pl->[$i * 2 + 1];
@@ -95,18 +95,18 @@ sub fuzz_tags {
 	my $cont = $pl->[$i + 1];
 
 	if ($tag eq '0') {
-	    &fuzz_text (\$cont);
+	    fuzz_text (\$cont);
 	    $pl->[$i + 1] = $cont;
 	} else {
-	    if (&doit ($remove_tag_prob)) {
+	    if (doit ($remove_tag_prob)) {
 		splice @$pl, $i, 2;
 		$i -= 2; # Counter the add
 		next;
 	    }
 
 	    my ($attrs,@l) = @$cont;
-	    &fuzz_attrs ($attrs);
-	    &fuzz_tags (\@l);
+	    fuzz_attrs ($attrs);
+	    fuzz_tags (\@l);
 	    $pl->[$i + 1] = [$attrs, @l];
 	}	
     }
@@ -116,7 +116,7 @@ sub fuzz_text {
     my ($pt) = @_;
     my $t = ${$pt};
 
-    if (&looks_like_int ($t) && &doit ($change_int_prob)) {
+    if (looks_like_int ($t) && doit ($change_int_prob)) {
 	my $i = int((rand() - 0.5) * 2 * 2147483647);
 	${$pt} = $i;
 	return;
@@ -127,8 +127,8 @@ sub fuzz_attrs {
     my ($pa) = @_;
 
     my @l = @$pa;
-    if (@l > 2 && &doit ($permute_attrs_prob)) {
-	my @p = &random_permutation (@l / 2);
+    if (@l > 2 && doit ($permute_attrs_prob)) {
+	my @p = random_permutation (@l / 2);
 	my @l2 = ();
 	foreach my $i (@p) {
 	    push @l2, $l[$i * 2], $l[$i * 2 + 1];
@@ -136,18 +136,18 @@ sub fuzz_attrs {
 	@l = @l2;
     }
     for (my $i = 0; $i + 1 < @l; $i += 2) {
-	if (&doit ($remove_attr_prob)) {
+	if (doit ($remove_attr_prob)) {
 	    splice @l, $i, 2;
 	    $i -= 2; # Counter the add
 	    next;
 	} else {
 	    my $attr = $l[$i];
 	    my $N = @{$attr_range{$attr}};
-	    if ($N > 1 && &doit ($copy_attr_value_prob)) {
+	    if ($N > 1 && doit ($copy_attr_value_prob)) {
 		# Copy a random value seen for this attribute.
 		$l[$i + 1] = $attr_range{$attr}->[int (rand ($N))];
 	    } else {
-		&fuzz_text (\$l[$i + 1]);
+		fuzz_text (\$l[$i + 1]);
 	    }
 	}
     }
@@ -164,11 +164,11 @@ sub study_tags {
 	my $cont = $pl->[$i + 1];
 
 	if ($tag eq '0') {
-	    &study_text ($cont);
+	    study_text ($cont);
 	} else {
 	    my ($attrs,@l) = @$cont;
-	    &study_attrs ($attrs);
-	    &study_tags (\@l);
+	    study_attrs ($attrs);
+	    study_tags (\@l);
 	}	
     }
 }
@@ -203,7 +203,7 @@ sub write_xml {
 		$writer->emptyTag($tag, @$attrs);
 	    } else {
 		$writer->startTag($tag, @$attrs);
-		&write_xml ($writer, \@l);
+		write_xml ($writer, \@l);
 		$writer->endTag($tag);
 	    }
 	}	

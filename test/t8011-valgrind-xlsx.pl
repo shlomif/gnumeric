@@ -25,7 +25,7 @@ foreach my $src (@sources) {
 	next;
     }
 
-    my $basename = &File::Basename::fileparse ($src);
+    my $basename = File::Basename::fileparse ($src);
     my $basenoext = $basename;
     $basenoext =~ s/\.[^.]+$//;
 

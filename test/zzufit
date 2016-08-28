@@ -17,13 +17,13 @@ my $LOG = "zzufit.log";
 my $DIR = "zzufit.tmp";
 my $valgrind = 0;
 
-&GetOptions ("rate=f" => \$rate,
+GetOptions ("rate=f" => \$rate,
 	     "seed=i" => \$n,
 	     'valgrind' => \$valgrind,
 	     )
-    or die &usage (1);
+    or die usage(1);
 
-die &usage (1) unless @ARGV;
+die usage(1) unless @ARGV;
 @corpus = @ARGV;
 
 if (!-d $DIR) {
@@ -33,7 +33,7 @@ if (!-d $DIR) {
 while (1) {
     $n++;
     print STDERR "Test $n\n";
-    &append_log ("-------------------------------------------------------\n");
+    append_log ("-------------------------------------------------------\n");
 
     my $file = $corpus[$n % @corpus];
     my $type = &determine_file_type ($file);
@@ -63,7 +63,7 @@ while (1) {
 	die "$0: Internal error.\n";
     }
 
-    &append_log ("Fuzz command $fuzzcmd\n");
+    append_log ("Fuzz command $fuzzcmd\n");
     {
 	system ($fuzzcmd);
 	my $code = $?;
@@ -83,7 +83,7 @@ while (1) {
     my $sig = $code & 0x7f;
     if ($sig) {
 	if ($code & 0x80) {
-	    &append_log ("CORE\n");
+	    append_log ("CORE\n");
 	    print STDERR "CORE\n";
 	}
 	last if $sig == 2;
@@ -91,7 +91,7 @@ while (1) {
     } else {
 	$code >>= 8;
 	my $txt = "Exit code $code\n";
-	&append_log ($txt);
+	append_log ($txt);
 	if ($code >= 2) {
 	    print STDERR $txt;
 	    $keepfiles = 1;

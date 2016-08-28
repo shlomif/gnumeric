@@ -48,4 +48,4 @@ my @expected_statfuns =
      );
 
 test_ssindex ("$samples/excel/statfuns.xls",
-	       (sub { &compare_items ($_, \@expected_statfuns); }));
+	       (sub { compare_items($_, \@expected_statfuns); }));
